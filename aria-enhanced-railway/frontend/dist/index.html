@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIA Enhanced - AI Business Automation Platform</title>
+    <meta name="description" content="Advanced AI-powered business automation platform with real-time learning and seamless integrations">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="loading-text">Initializing ARIA Enhanced...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal active">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Welcome to ARIA Enhanced</h2>
+                <p>Advanced AI Business Automation Platform</p>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+                
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-username">Username or Email</label>
+                        <input type="text" id="login-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </form>
+                
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Register
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app" class="app hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <span>ARIA Enhanced</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#ai-engine" class="nav-item" data-view="ai-engine">
+                    <i class="fas fa-brain"></i>
+                    <span>AI Engine</span>
+                </a>
+                <a href="#tasks" class="nav-item" data-view="tasks">
+                    <i class="fas fa-tasks"></i>
+                    <span>Task Manager</span>
+                </a>
+                <a href="#knowledge" class="nav-item" data-view="knowledge">
+                    <i class="fas fa-book"></i>
+                    <span>Knowledge Base</span>
+                </a>
+                <a href="#integrations" class="nav-item" data-view="integrations">
+                    <i class="fas fa-plug"></i>
+                    <span>Integrations</span>
+                </a>
+                <a href="#analytics" class="nav-item" data-view="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="user-name">User</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard View -->
+                <div id="dashboard-view" class="view active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-tasks">0</h3>
+                                <p>Total Tasks</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="completed-tasks">0</h3>
+                                <p>Completed</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="knowledge-entries">0</h3>
+                                <p>Knowledge Entries</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="active-integrations">0</h3>
+                                <p>Active Integrations</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Recent Activity</h3>
+                            <div id="recent-activity" class="activity-list">
+                                <!-- Activity items will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <h3>AI Insights</h3>
+                            <div class="insights-list">
+                                <div class="insight-item">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <span>Automation opportunity detected in email workflows</span>
+                                </div>
+                                <div class="insight-item">
+                                    <i class="fas fa-chart-up"></i>
+                                    <span>Task completion rate improved by 25%</span>
+                                </div>
+                                <div class="insight-item">
+                                    <i class="fas fa-sync"></i>
+                                    <span>3 new integration opportunities available</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Engine View -->
+                <div id="ai-engine-view" class="view">
+                    <div class="ai-engine-grid">
+                        <div class="ai-card">
+                            <h3>Text Analysis</h3>
+                            <div class="ai-form">
+                                <textarea id="analysis-text" placeholder="Enter text to analyze..."></textarea>
+                                <button onclick="analyzeText()" class="btn-primary">
+                                    <i class="fas fa-brain"></i>
+                                    Analyze
+                                </button>
+                            </div>
+                            <div id="analysis-results" class="ai-results"></div>
+                        </div>
+                        
+                        <div class="ai-card">
+                            <h3>Content Generation</h3>
+                            <div class="ai-form">
+                                <input type="text" id="generation-prompt" placeholder="Enter generation prompt...">
+                                <select id="generation-type">
+                                    <option value="email">Email</option>
+                                    <option value="report">Report</option>
+                                    <option value="task">Task</option>
+                                    <option value="general">General</option>
+                                </select>
+                                <button onclick="generateContent()" class="btn-primary">
+                                    <i class="fas fa-magic"></i>
+                                    Generate
+                                </button>
+                            </div>
+                            <div id="generation-results" class="ai-results"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks View -->
+                <div id="tasks-view" class="view">
+                    <div class="view-header">
+                        <h2>Task Manager</h2>
+                        <button onclick="showCreateTaskModal()" class="btn-primary">
+                            <i class="fas fa-plus"></i>
+                            New Task
+                        </button>
+                    </div>
+                    <div id="tasks-list" class="tasks-list">
+                        <!-- Tasks will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Knowledge Base View -->
+                <div id="knowledge-view" class="view">
+                    <div class="view-header">
+                        <h2>Knowledge Base</h2>
+                        <button onclick="showCreateKnowledgeModal()" class="btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Add Entry
+                        </button>
+                    </div>
+                    <div id="knowledge-list" class="knowledge-list">
+                        <!-- Knowledge entries will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Integrations View -->
+                <div id="integrations-view" class="view">
+                    <div class="view-header">
+                        <h2>Integrations</h2>
+                        <button onclick="showCreateIntegrationModal()" class="btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Add Integration
+                        </button>
+                    </div>
+                    <div class="integrations-grid">
+                        <div class="integration-card available">
+                            <div class="integration-icon">
+                                <i class="fab fa-salesforce"></i>
+                            </div>
+                            <h3>Salesforce</h3>
+                            <p>CRM Integration</p>
+                            <button class="btn-secondary">Connect</button>
+                        </div>
+                        <div class="integration-card available">
+                            <div class="integration-icon">
+                                <i class="fab fa-slack"></i>
+                            </div>
+                            <h3>Slack</h3>
+                            <p>Team Communication</p>
+                            <button class="btn-secondary">Connect</button>
+                        </div>
+                        <div class="integration-card available">
+                            <div class="integration-icon">
+                                <i class="fab fa-microsoft"></i>
+                            </div>
+                            <h3>Microsoft 365</h3>
+                            <p>Office Suite</p>
+                            <button class="btn-secondary">Connect</button>
+                        </div>
+                        <div class="integration-card available">
+                            <div class="integration-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email</h3>
+                            <p>Email Automation</p>
+                            <button class="btn-secondary">Connect</button>
+                        </div>
+                    </div>
+                    <div id="integrations-list" class="integrations-list">
+                        <!-- Active integrations will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Analytics View -->
+                <div id="analytics-view" class="view">
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3>Performance Metrics</h3>
+                            <div class="metrics-list">
+                                <div class="metric">
+                                    <span class="metric-label">Task Completion Rate</span>
+                                    <span class="metric-value">87%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Automation Efficiency</span>
+                                    <span class="metric-value">92%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Time Saved</span>
+                                    <span class="metric-value">15.2 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>Usage Statistics</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-bar"></i>
+                                <p>Analytics charts would be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Task</h3>
+                <button class="modal-close" onclick="closeModal('task-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title">Title</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea id="task-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Create Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="knowledge-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Knowledge Entry</h3>
+                <button class="modal-close" onclick="closeModal('knowledge-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="knowledge-form">
+                    <div class="form-group">
+                        <label for="knowledge-title">Title</label>
+                        <input type="text" id="knowledge-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="knowledge-content">Content</label>
+                        <textarea id="knowledge-content" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="knowledge-category">Category</label>
+                        <input type="text" id="knowledge-category" placeholder="e.g., procedures, guidelines">
+                    </div>
+                    <div class="form-group">
+                        <label for="knowledge-tags">Tags (comma-separated)</label>
+                        <input type="text" id="knowledge-tags" placeholder="e.g., automation, workflow">
+                    </div>
+                    <button type="submit" class="btn-primary">Add Entry</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
